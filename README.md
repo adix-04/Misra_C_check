@@ -1,65 +1,76 @@
-# code-check README
+# Code Check
 
-This is the README for your extension "code-check". After writing up a brief description, we recommend including the following sections.
+A Visual Studio Code extension for checking **C code against coding standards**.
+
+Code Check helps C developers identify coding-standard violations directly in VS Code, making it easier to write clean, consistent, and maintainable code.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+* 🔍 Checks C source code for coding-standard violations
+* ⚠️ Reports issues directly in the VS Code editor
+* 💡 Helps identify and fix code-style problems
+* 🚀 Runs directly inside VS Code
+* 🧹 Encourages consistent and readable C code
 
-For example if there is an image subfolder under your extension project workspace:
+## Supported Language
 
-\!\[feature X\]\(images/feature-x.png\)
+Currently supported:
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+* **C** (`.c` files)
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+* [Visual Studio Code](https://code.visualstudio.com/)
+* A C source file or C project
+
+No additional setup is required.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+Code Check does not currently require any additional configuration.
 
-For example:
+If configuration options are added in future releases, they will be documented here.
 
-This extension contributes the following settings:
+## Usage
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+1. Install **Code Check** from the VS Code Marketplace.
+2. Open a C project or `.c` file.
+3. Write or modify your C code.
+4. Code Check analyzes the code and reports coding-standard issues in the editor.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+This extension is currently under development.
+
+If you find a bug or a rule that is incorrectly reported, please open an issue in the project's repository.
+
+When reporting an issue, include:
+
+* The C code that causes the problem
+* What you expected to happen
+* What actually happened
+* Any relevant error messages
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
+Initial release.
 
-### 1.0.1
+* Added C coding-standard checking
+* Added diagnostics for coding-standard violations
+* Integrated checks directly into VS Code
 
-Fixed issue #.
+## Contributing
 
-### 1.1.0
+Contributions, suggestions, and bug reports are welcome.
 
-Added features X, Y, and Z.
+If you would like to add new coding-standard rules or improve existing checks, feel free to contribute to the project.
+
+## License
+
+See the `LICENSE` file for license information.
 
 ---
 
-## Working with Markdown
-
-You can author your README using Visual Studio Code.  Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux)
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux)
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+**Code Check — Keep your C code clean and consistent.**
