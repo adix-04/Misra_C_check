@@ -1,15 +1,13 @@
 const { createDiagnostic } = require("../utils/helper");
 
 module.exports = {
-
     id: "10.1",
-    scope: "line",
     title: "Assignment shall not appear in condition expressions.",
+    scope: "line",
 
     checkLine(line, lineNumber) {
         const trimmed = line.trim();
 
-        // very simple heuristic: if condition contains '=' but not '=='
         if (!trimmed.startsWith("if")) return null;
         if (!trimmed.includes("=")) return null;
         if (trimmed.includes("==")) return null;
@@ -19,7 +17,7 @@ module.exports = {
             lineNumber,
             index,
             index + 2,
-            "10.1", // was "15.1" — bug fix
+            "10.1", // was hardcoded "15.1" before
             "Assignment in condition may be unsafe"
         );
     }

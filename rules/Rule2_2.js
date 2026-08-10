@@ -1,36 +1,24 @@
-const vscode = require("vscode");
 const { createDiagnostic } = require("../utils/helper");
 
 module.exports = {
 
     id: "2.2",
+    scope: "line",
     title: "Empty statement blocks shall not be used.",
-    check(context) {
-        const diagnostics = [];
-       // const text = document.getText();
-       const lines = context.lines;
 
-        lines.forEach((line, lineNumber) => {
+    checkLine(line, lineNumber) {
+        const trimmed = line.trim();
 
-            const trimmed = line.trim();
+        if (trimmed !== "{}" && trimmed !== "{ }") return null;
 
-            // very simple check for empty block
-            if (trimmed === "{}" || trimmed === "{ }") {
+        const start = line.indexOf("{");
 
-                const start = line.indexOf("{");
-
-                diagnostics.push(
-                    createDiagnostic(
-                        lineNumber,
-                        start,
-                        start + 2,
-                        "15.1",
-                        "empty blocks are not allowed",
-                    )
-                );
-            }
-        });
-
-        return diagnostics;
+        return createDiagnostic(
+            lineNumber,
+            start,
+            start + 2,
+            "2.2", // was "15.1" before — bug fix
+            "empty blocks are not allowed"
+        );
     }
 };

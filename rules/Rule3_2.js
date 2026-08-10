@@ -3,44 +3,26 @@ const { createDiagnostic } = require("../utils/helper");
 module.exports = {
 
     id: "3.2",
+    scope: "line",
     title: "Line splicing shall not be used in // comments",
 
-    check(context) {
+    checkLine(line, lineNumber) {
+        const commentIndex = line.indexOf("//");
+        if (commentIndex === -1) return null;
 
-        const diagnostics = [];
-        const lines = context.lines;
+        const commentText = line.slice(commentIndex + 2);
+        const trimmed = commentText.trimEnd();
 
-        lines.forEach((line, lineNumber) => {
+        if (!trimmed.endsWith("\\")) return null;
 
-            const text = line;
+        const col = line.lastIndexOf("\\");
 
-            const commentIndex = text.indexOf("//");
-
-            // Only care if line has a // comment
-            if (commentIndex !== -1) {
-
-                const commentText = text.slice(commentIndex + 2);
-
-                const trimmed = commentText.trimEnd();
-
-                // Check if comment ends with backslash
-                if (trimmed.endsWith("\\")) {
-
-                    const col = text.lastIndexOf("\\");
-
-                    diagnostics.push(
-                        createDiagnostic(
-                            lineNumber,
-                            col,
-                            col + 1,
-                            "3.2",
-                            "Line splicing (\\) is not allowed in // comments"
-                        )
-                    );
-                }
-            }
-        });
-
-        return diagnostics;
+        return createDiagnostic(
+            lineNumber,
+            col,
+            col + 1,
+            "3.2",
+            "Line splicing (\\) is not allowed in // comments"
+        );
     }
 };

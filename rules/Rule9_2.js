@@ -56,6 +56,7 @@ const { createDiagnostic } = require("../utils/helper");
 module.exports = {
 
     id: "9.2",
+      scope:"document",
     title: "Aggregate initializers shall use braces for subobjects",
 
     check(context) {
