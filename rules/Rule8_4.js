@@ -1,25 +1,26 @@
 const { createDiagnostic } = require("../utils/helper");
 
-module.exports = {
+// a bare "=" not part of ==, !=, <=, >=, +=, -=, *=, /=, %=, &=, |=, ^=, <<=, >>=
+const bareAssignment = /(?<![=!<>+\-*/%&|^])=(?!=)/;
 
+module.exports = {
     id: "10.1",
+    title: " shall not appear in condition expressions.",
     scope: "line",
-    title: "Assignment shall not appear in condition expressions.",
 
     checkLine(line, lineNumber) {
         const trimmed = line.trim();
 
-        // very simple heuristic: if condition contains '=' but not '=='
         if (!trimmed.startsWith("if")) return null;
-        if (!trimmed.includes("=")) return null;
-        if (trimmed.includes("==")) return null;
 
-        const index = line.indexOf("=");
+        const match = bareAssignment.exec(line);
+        if (!match) return null;
+
         return createDiagnostic(
             lineNumber,
-            index,
-            index + 2,
-            "10.1", // was "15.1" — bug fix
+            match.index,
+            match.index + 1,
+            "10.1",
             "Assignment in condition may be unsafe"
         );
     }
