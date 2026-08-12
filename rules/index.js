@@ -1,14 +1,4 @@
-// module.exports = [
 
-//     require("./Rule15_1"),
-//     require("./Rule8_4"),
-//     require("./Rule2_2"),
-//     require("./Rule2_6"),
-//     require("./Rule3_2"),
-//     require("./Rule8_2"),
-//     require("./Rule9_2")
-
-// ];
 const Rule15_1 = require("./Rule15_1");
 const Rule10_1 = require("./Rule10_1"); // was in earlier messages, missing here too
 const Rule2_2  = require("./Rule2_2");
@@ -20,10 +10,10 @@ const Rule9_2  = require("./Rule9_2");
 const Rule13_6  = require("./Rule13_6");
 const Rule17_6  = require("./Rule17_6");
 const Rule22_6  = require("./Rule22_6");
-
+const Rule4_12 = require("./Rule4_12")
 const allRules = [
     Rule15_1,
-    Rule10_1,
+    Rule4_12,
     Rule2_2,
     Rule2_6,
     Rule3_2,
