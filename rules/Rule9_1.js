@@ -4,6 +4,12 @@ const TYPES = "uint8_t|uint16_t|uint32_t|int8_t|int16_t|int32_t|int|char|float|d
 const declNoInit = new RegExp(`\\b(?:${TYPES})\\s+([a-zA-Z_]\\w*)\\s*;`);
 const declWithInit = new RegExp(`\\b(?:${TYPES})\\s+([a-zA-Z_]\\w*)\\s*=`);
 const directAssign = /\b([a-zA-Z_]\w*)\s*=(?!=)/;
+// "&varName" - taking the address, not reading the value (e.g. passed to a function to be set)
+function isAddressOf(line, matchIndex) {
+    let i = matchIndex - 1;
+    while (i >= 0 && /\s/.test(line[i])) i--;
+    return i >= 0 && line[i] === "&";
+}
 
 module.exports = {
 
@@ -16,27 +22,25 @@ module.exports = {
         const lines = context.lines;
 
         let braceDepth = 0;
-        let unset = new Map(); // varName -> declaration line, cleared on direct assignment or first flagged read
-        let sawGoto = false;
+        let unset = new Map();
+        let sawGotoInBlock = false; // once true for this block, inline-init lines are no longer trusted
 
         for (let lineNumber = 0; lineNumber < lines.length; lineNumber++) {
             const line = lines[lineNumber];
             const trimmed = line.trim();
 
-            // track brace depth so state resets per function/block instead of
-            // leaking "unset" variables across unrelated functions
             for (const ch of trimmed) {
                 if (ch === "{") braceDepth++;
                 else if (ch === "}") braceDepth--;
             }
             if (braceDepth <= 0) {
                 if (unset.size) unset.clear();
-                sawGoto = false;
+                sawGotoInBlock = false;
                 continue;
             }
 
-            if (!sawGoto && /\bgoto\b/.test(trimmed)) {
-                sawGoto = true; // widen the warning text below, don't try to model jumps
+            if (!sawGotoInBlock && /\bgoto\b/.test(trimmed)) {
+                sawGotoInBlock = true;
             }
 
             const noInitMatch = trimmed.match(declNoInit);
@@ -45,12 +49,16 @@ module.exports = {
                 continue;
             }
 
-            if (declWithInit.test(trimmed)) {
-                continue; // explicitly initialized on declaration - nothing to track
+            const withInitMatch = trimmed.match(declWithInit);
+            if (withInitMatch) {
+                if (sawGotoInBlock) {
+                    // a goto earlier in this block may jump past this initializer -
+                    // can't trust the inline init, so still track it as unset
+                    unset.set(withInitMatch[1], lineNumber);
+                }
+                continue;
             }
 
-            // fast path: skip the per-variable scan entirely on lines where
-            // nothing is currently pending - true for most lines in a file
             if (unset.size === 0) continue;
 
             const assignMatch = trimmed.match(directAssign);
@@ -60,21 +68,26 @@ module.exports = {
             }
 
             for (const varName of unset.keys()) {
-                const match = new RegExp(`\\b${varName}\\b`).exec(line);
-                if (!match) continue;
+                const regex = new RegExp(`\\b${varName}\\b`, "g");
+                let match;
+                let flagged = false;
+                while ((match = regex.exec(line)) !== null) {
+                    if (isAddressOf(line, match.index)) continue; // &var - not a read
 
-                diagnostics.push(
-                    createDiagnosticError(
-                        lineNumber,
-                        match.index,
-                        match.index + varName.length,
-                        "9.1",
-                        sawGoto
-                            ? `Variable '${varName}' may be read before being set (goto present in this block - verify manually)`
-                            : `Variable '${varName}' may be read before being set`
-                    )
-                );
-                unset.delete(varName); // flag once per variable, not on every subsequent read
+                    diagnostics.push(
+                        createDiagnosticError(
+                            lineNumber,
+                            match.index,
+                            match.index + varName.length,
+                            "9.1",
+                            sawGotoInBlock
+                                ? `Variable '${varName}' may be read before being set (goto present in this block - verify manually)`
+                                : `Variable '${varName}' may be read before being set`
+                        )
+                    );
+                    flagged = true;
+                }
+                if (flagged) unset.delete(varName);
             }
         }
 
