@@ -13,6 +13,9 @@ const Rule22_6  = require("./Rule22_6");
 const Rule4_12 = require("./Rule4_12");
 const Rule5_7 = require("./Rule5_7");
 const Rule16_3 = require("./Rule16_3");
+const Rule3_1 = require("./Rule3_1");
+const Rule7_1 = require(".//Rule7_1");
+const Rule4_1 = require("./Rule4_1");
 
 const allRules = [
     Rule15_1,
@@ -27,7 +30,10 @@ const allRules = [
     Rule17_6,
     Rule22_6,
     Rule5_7,
-    Rule16_3
+    Rule16_3,
+    Rule3_1,
+    Rule7_1,
+    Rule4_1
 ];
 
 for (const rule of allRules) {
