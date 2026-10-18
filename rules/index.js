@@ -1,6 +1,5 @@
-
 const Rule15_1 = require("./Rule15_1");
-const Rule10_1 = require("./Rule10_1"); // was in earlier messages, missing here too
+const Rule10_1 = require("./Rule10_1"); 
 const Rule2_2  = require("./Rule2_2");
 const Rule2_6  = require("./Rule2_6");
 const Rule3_2  = require("./Rule3_2");
@@ -14,8 +13,11 @@ const Rule4_12 = require("./Rule4_12");
 const Rule5_7 = require("./Rule5_7");
 const Rule16_3 = require("./Rule16_3");
 const Rule3_1 = require("./Rule3_1");
-const Rule7_1 = require(".//Rule7_1");
+const Rule7_1 = require("./Rule7_1");
 const Rule4_1 = require("./Rule4_1");
+const Rule2_4 = require("./Rule2_4");
+const Rule11_3 = require("./Rule11_3");
+const Rule12_2 = require("./Rule12_2");
 
 const allRules = [
     Rule15_1,
@@ -33,7 +35,10 @@ const allRules = [
     Rule16_3,
     Rule3_1,
     Rule7_1,
-    Rule4_1
+    Rule4_1,
+    Rule2_4,
+    Rule11_3,
+    Rule12_2
 ];
 
 for (const rule of allRules) {
