@@ -1,76 +1,117 @@
-# Code Check
 
-A Visual Studio Code extension for checking **C code against coding standards**.
+# Code Check — C Coding Standard Checker for VS Code
 
-Code Check helps C developers identify coding-standard violations directly in VS Code, making it easier to write clean, consistent, and maintainable code.
+**Keep your C code clean, consistent, and maintainable.**
 
-## Features
+Code Check is a Visual Studio Code extension that helps C developers identify coding-standard violations directly in the editor. It helps developers write readable, consistent, and maintainable C code.
 
-* 🔍 Checks C source code for coding-standard violations
-* ⚠️ Reports issues directly in the VS Code editor
-* 💡 Helps identify and fix code-style problems
-* 🚀 Runs directly inside VS Code
-* 🧹 Encourages consistent and readable C code
+## ✨ Features
 
-## Supported Language
+- 🔍 Checks C source code for coding-standard violations.
+- ⚠️ Reports detected issues directly in the VS Code editor.
+- 💡 Helps developers identify code-style problems.
+- 🚀 Works directly inside Visual Studio Code.
+- 🧹 Encourages clean and consistent C code.
+
+## 🎬 Demo
+![Code Check Demo](assets/sample.gif)
+See Code Check in action:
+
+## 🚀 Getting Started
+
+### Installation
+
+1. Open Visual Studio Code.
+2. Open the Extensions view using `Ctrl + Shift + X`.
+3. Search for **Code Check**.
+4. Install the extension.
+5. Open a C source file (`.c`).
+
+### Usage
+
+1. Open a C project or a `.c` file in VS Code.
+2. Write or modify your C code.
+3. Let Code Check perform its implemented checking workflow.
+4. Review detected coding-standard violations in the editor.
+5. Open the **Problems** panel to inspect reported issues.
+
+The exact checking trigger depends on the extension's implementation.
+
+## 🧪 Example
+
+Consider this C program with compact formatting:
+
+
+### What can be improved?
+
+- **Indentation:** Keep the function body consistently indented.
+- **Spacing:** Separate statements to improve readability.
+- **Structure:** Use line breaks to make the code easier to understand.
+- **Maintainability:** Organize code so it is easier to modify.
+
+> Note: This is an illustrative example. Whether these specific formatting issues are detected depends on the rules implemented in Code Check.
+
+## 🖥️ Supported Language
 
 Currently supported:
 
-* **C** (`.c` files)
+- **C** (`.c` files)
 
-## Requirements
+## ⚙️ Requirements
 
-* [Visual Studio Code](https://code.visualstudio.com/)
-* A C source file or C project
+- [Visual Studio Code](https://code.visualstudio.com/)
+- A C source file or C project
 
-No additional setup is required.
+## 🔧 Extension Settings
 
-## Extension Settings
+Code Check does not currently require additional configuration.
 
-Code Check does not currently require any additional configuration.
+Any future settings will be documented here.
 
-If configuration options are added in future releases, they will be documented here.
-
-## Usage
-
-1. Install **Code Check** from the VS Code Marketplace.
-2. Open a C project or `.c` file.
-3. Write or modify your C code.
-4. Code Check analyzes the code and reports coding-standard issues in the editor.
-
-## Known Issues
+## ⚠️ Known Issues
 
 This extension is currently under development.
 
-If you find a bug or a rule that is incorrectly reported, please open an issue in the project's repository.
+If you find a bug or an incorrectly reported violation, please open an issue in the project's repository.
 
 When reporting an issue, include:
 
-* The C code that causes the problem
-* What you expected to happen
-* What actually happened
-* Any relevant error messages
+- The C code that reproduces the problem.
+- The expected behavior.
+- The actual behavior.
+- Any relevant error messages.
 
-## Release Notes
+## 🗺️ Future Improvements
+
+Potential improvements include:
+
+- Additional coding-standard rules.
+- More descriptive diagnostic messages.
+- Configurable coding-standard profiles.
+- Improvements to code analysis.
+
+These are possible future enhancements, not guaranteed features of the current release.
+
+## 🤝 Contributing
+
+Contributions, suggestions, and bug reports are welcome!
+
+You can help improve Code Check by proposing new rules, reporting incorrect diagnostics, or contributing improvements to the extension.
+
+## 📦 Release Notes
 
 ### 1.0.0
 
 Initial release.
 
-* Added C coding-standard checking
-* Added diagnostics for coding-standard violations
-* Integrated checks directly into VS Code
+- Added C coding-standard checking.
+- Added diagnostics for detected coding-standard violations.
+- Integrated code checking into the VS Code workflow.
 
-## Contributing
+## 📄 License
 
-Contributions, suggestions, and bug reports are welcome.
-
-If you would like to add new coding-standard rules or improve existing checks, feel free to contribute to the project.
-
-## License
-
-See the `LICENSE` file for license information.
+See the [LICENSE](LICENSE) file for license information.
 
 ---
 
-**Code Check — Keep your C code clean and consistent.**
+**Code Check — Write better C, one check at a time.**
